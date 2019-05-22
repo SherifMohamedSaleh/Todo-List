@@ -1,0 +1,346 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    * { box-sizing:border-box; }
+
+h2 		 { 
+  text-align:center; 
+  margin-bottom:50px; 
+}
+h2 small { 
+  font-weight:normal; 
+  color:#888; 
+  display:block; 
+}
+.footer 	{ text-align:center; }
+.footer a  { color:#53B2C8; }
+
+.group 			  { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+input 				{
+  background: transparent;
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display: inline;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus 		{ outline:none; }
+
+label 				 {
+  text-align: center;
+  color:#1ECD97; 
+  font-size:18px;
+  font-weight:normal;
+  position: relative;;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+input:focus ~ label, input:valid ~ label 		{
+  top:-20px;
+  font-size:14px;
+  color:#1ECD97;
+}
+
+.bar 	{ position:relative; display:block; width:300px; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#1ECD97; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+    
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+.container {
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin-left: -65px;
+  margin-top: -20px;
+  width: 130px;
+  height: 40px;
+  text-align: center;
+}
+button {
+  background: transparent ;
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius:40px;
+  border: 2px solid #1ECD97;
+  color:#1ECD97;
+  letter-spacing:1px;
+  text-shadow:0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+    
+    body {
+ 
+  margin: 0;
+  padding: 0;
+}
+
+#full {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+  
+    .divSec1,.divSec2, .divSec3 {
+      float: left;
+      width: 25vw;
+      height: 60vw;
+      background: transparent;
+      margin: 3vw;
+   
+
+}
+li{
+  border: 1px solid#1ECD97;
+  margin: 5px;
+}
+
+@media only screen and (max-width: 700px) {
+         ul{
+             
+              width: 100%;
+              height: 60vh;
+              display: inline;
+             
+            }
+            li{
+              border: 1px solid #1ECD97;
+            }
+                   .divSec1{
+              width: 80vw;
+              align-self: center;
+  
+            }
+            .divSec2{
+      
+            width: 80vw;
+            align-self: center;
+                
+              }
+              .divSec3{
+            width: 80vw;
+            align-self: center;
+                }
+            input{
+              width: 80vw;
+            }  
+            button {
+              width: 80vw;
+
+            }    
+        }
+.divSec1 ul li{background:#F2AECE;}
+.divSec2 ul li{background: #A7E4F2 ;}
+.divSec3 ul li{background: #A7E48F ;}
+
+ul{
+  width: 20vw;
+  height: 60vh;
+}
+
+.nameDiv{
+  align-self: center;
+  margin-left : 5%;
+}
+</style>
+</head>
+
+<body id="full">
+  <header>
+    <!-- <h1 align="center" >TODO LIST</h1> -->
+  </header>
+
+  <main align="center">
+    <div align="center" class="nameDiv">
+
+      <div class="group">
+        <input id="name" type="text" required>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Task</label>
+      </div>
+      <button id="button" onclick="myFunction()">Add New Task</button>
+    </div>
+    <section>
+      <div class="divSec1">
+        <h2>Todo </h2>
+        <ul id="Storage" ondrop="drop(event)" ondragover="allowDrop(event)">
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="divSec2">
+        <h2>In Progres</h2>
+        <ul id="Storage1" ondrop="drop(event)" ondragover="allowDrop(event)">
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="divSec3">
+        <h2>Done</h2>
+        <ul id="Storage2" ondrop="drop(event)" ondragover="allowDrop(event)">
+        </ul>
+      </div>
+    </section>
+
+  </main>
+  <script>
+
+    var div = document.getElementById("full");
+
+    function getRandomColor() {
+      var letters = '0123456789';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 9)];
+      }
+      return color;
+    }
+
+    function changeColor() {
+      div.style.backgroundColor = getRandomColor();
+    }
+
+    setInterval(changeColor, 6000);
+    function validate() {
+      setTimeout(function () {
+        $("#button").removeClass("onclic");
+        $("#button").addClass("validate", 450, callback);
+      }, 2250);
+    }
+    function callback() {
+      setTimeout(function () {
+        $("#button").removeClass("validate");
+      }, 1250);
+    }
+    var arrNames = [];
+    onStartApp();
+    function onStartApp() {
+
+      var arrNames = JSON.parse(localStorage.getItem("names"));
+      var ul = document.getElementById("Storage");
+      var ul1 = document.getElementById("Storage1");
+      var ul2 = document.getElementById("Storage2");
+
+      if (arrNames) {
+        for (var i = 0; i < arrNames.length; i++) {
+
+          var row = document.createElement('li');
+          row.innerHTML = arrNames[i].name;
+          row.setAttribute("id", arrNames[i].name);
+          row.setAttribute("draggable", "true");
+          row.setAttribute("ondragstart", "drag(event)");
+          row.setAttribute("ondragover", "stopDrop(event)");
+          if (arrNames[i].list == 1) { ul.appendChild(row); } else if (arrNames[i].list == 2) {
+            ul1.appendChild(row);
+          }
+          else {
+            ul2.appendChild(row);
+          }
+        }
+      }
+    }
+    function myFunction() {
+      var name = document.getElementById("name");
+      if (localStorage.getItem("names")) {
+        arrNames = JSON.parse(localStorage.getItem("names"));
+      }
+      var obj = {
+        name: name.value,
+        list: 1
+      };
+      arrNames.push(obj);
+      localStorage.setItem("names", JSON.stringify(arrNames));
+      var ul = document.getElementById("Storage");
+      var row = document.createElement('li');
+      row.innerHTML = name.value;
+      row.setAttribute("id", obj.name);
+      row.setAttribute("draggable", "true");
+      row.setAttribute("ondragstart", "drag(event)");
+      row.setAttribute("ondragover", "stopDrop(event)");
+      ul.appendChild(row);
+      name.value = null;
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+    function stopDrop(ev) {
+      ev.stopPropagation();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+      console.log(ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      for (var i = 0; i < arrNames.length; i++) {
+        if (data == arrNames[i].name) {
+          if (ev.target.id == "Storage") { arrNames[i].list = 1; }
+          else if (ev.target.id == "Storage1") { arrNames[i].list = 2; }
+          else { arrNames[i].list = 3; }
+        }
+        localStorage.setItem("names", JSON.stringify(arrNames));
+      }
+      console.log(ev.target.id);
+      ev.target.appendChild(document.getElementById(data));
+    }
+  </script>
+</body>
+
+</html>
